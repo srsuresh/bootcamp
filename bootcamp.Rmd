@@ -1,0 +1,49 @@
+---
+title: "Bootcamp"
+author: "Sunith R. Suresh"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+library(curl)
+library(dplyr)
+library(ggplot2)
+```
+
+Load the data
+```{r, echo=FALSE}
+gap <- read.csv(curl("http://bit.ly/gap_data_upd"))
+```
+
+Subset and Visualize
+```{r}
+eu_52 <- gap %>%
+  filter(continent == "Europe", year == 1952)
+ggplot(data = eu_52, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() 
+```
+
+Subset and Visualize-2
+```{r}
+eu_5267 <- gap %>%
+  filter(continent == "Europe", year %in% c(1952, 1967))
+ggplot(data = eu_5267, aes(x = gdpPercap, y = lifeExp, 
+                           color = factor(year))) +
+  geom_point()  
+```
+
